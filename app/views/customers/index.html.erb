@@ -1,0 +1,30 @@
+<h1>Listing Customers</h1>
+ 
+ <%= link_to 'New customer', new_customer_path %>
+
+<table>
+  <tr>
+    <th>Last name</th>
+    <th>Middle Name</th>
+    <th>First Name</th>
+    <th>Date of birth</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Email</th>
+  </tr>
+ 
+  <% @customers.each do |customer| %>
+    <tr>
+      <td><%= customer.lname %></td>
+      <td><%= customer.mname %></td>
+      <td><%= customer.fname %></td>
+      <td><%= customer.dob %></td>
+      <td><%= customer.add %></td>
+      <td><%= customer.city %></td>
+      <td><%= customer.state %></td>
+      <td><%= customer.email %></td>
+      <td><%= link_to 'Show', customer_path(customer) %></td>
+    </tr>
+  <% end %>
+</table>
