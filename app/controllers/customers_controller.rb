@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+before_action :authenticate_admin!
 
 def index
   @customers = Customer.all
@@ -9,11 +10,11 @@ def show
 end
 
 def new
-	@customer = Customer.new
+	@customer = current_admin.customers.build
 end
 
 def create
-	   @customer = Customer.new(customer_params)
+	   @customer = current_admin.customers.build(customer_params)
 
 	 if @customer.save
 	 	flash[:notice] = "saved successfully"
@@ -22,6 +23,13 @@ def create
 		render action: 'new'
 	 end
 end
+
+def destroy
+	@customer = Customer.find(params[:id])
+	@customer.destroy 
+	redirect_to customers_path, :notice => "Deleted!!"
+end
+
 
 private
   def customer_params
